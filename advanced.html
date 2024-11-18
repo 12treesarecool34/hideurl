@@ -51,17 +51,43 @@
         <p>Enter a URL you want to be opened in an about:blank page below:</p>
         <div class="input-group">
             <input id="urlInput" type="url" placeholder="Enter a website URL" autocomplete="on" required pattern="https://.*">
-            <button onclick="openUrl()">Open URL</button>
+            <button onclick="initOpenUrl()">Open URL</button>
         </div>
         <p>Note: This will not work for all websites!</p>
     </div>
     <script>
-        function openUrl() {
+        function encodeUrl(url) {
+            return btoa(unescape(encodeURIComponent(url)));
+        }
+
+        function decodeUrl(encodedUrl) {
+            return decodeURIComponent(escape(atob(encodedUrl)));
+        }
+
+        function delay(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+
+        async function loadIframe(encodedUrl, newWindow) {
+            await delay(1000); // Add delay
+            const url = decodeUrl(encodedUrl);
+            const iframe = newWindow.document.createElement('iframe');
+            iframe.style.border = 'none';
+            iframe.style.width = '100%';
+            iframe.style.height = '100%';
+            iframe.style.margin = '0';
+            iframe.allowFullscreen = true;
+            iframe.src = url;
+            newWindow.document.body.appendChild(iframe);
+        }
+
+        function initOpenUrl() {
             const url = document.getElementById('urlInput').value.trim();
             if (!url.startsWith('https://') && !url.startsWith('http://')) {
                 alert('Please enter a valid URL starting with https:// or http://');
                 return;
             }
+            const encodedUrl = encodeUrl(url);
             const newWindow = window.open('about:blank', '_blank');
             newWindow.document.write(`
                 <!DOCTYPE html>
@@ -84,10 +110,11 @@
                     </style>
                 </head>
                 <body>
-                    <iframe src="${url}" allowfullscreen></iframe>
                 </body>
                 </html>
             `);
+            newWindow.document.close();
+            loadIframe(encodedUrl, newWindow);
         }
     </script>
 </body>
