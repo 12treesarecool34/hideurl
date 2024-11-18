@@ -3,6 +3,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>HideURL</title>
+    <link id="favicon" rel="icon" type="image/x-icon" href="favicon.ico" />
     <style>
         body {
             background-color: #000005;
@@ -30,18 +31,24 @@
             flex: 1;
             padding: 10px;
             border: none;
-            border-radius: 10px 0 0 10px;
+            border-radius: 10px;
             background-color: #101010;
             color: #ffffff;
             margin-bottom: 0;
         }
+        .button-group {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
         button {
             padding: 10px 20px;
             border: none;
-            border-radius: 0 10px 10px 0;
+            border-radius: 10px;
             background-color: #102040;
             color: #ffffff;
             cursor: pointer;
+            margin-left: 10px;
         }
         .message-bar {
             position: fixed;
@@ -71,8 +78,11 @@
         <h1>HideURL</h1>
         <p>Enter a URL you want to be opened in an about:blank page below:</p>
         <div class="input-group">
-            <input id="urlInput" type="url" placeholder="Enter a website URL" autocomplete="on" required pattern="https://.*">
+            <input id="urlInput" type="url" placeholder="Enter a website URL" autocomplete="on" required pattern="https://.*" onkeypress="handleKeyPress(event)">
+        </div>
+        <div class="button-group">
             <button onclick="openUrl()">Open URL</button>
+            <button onclick="toggleGoogleMode()">Google Mode</button>
         </div>
     </div>
     <div class="message-bar" id="messageBar">
@@ -101,6 +111,17 @@
 
         function closeMessageBar() {
             document.getElementById('messageBar').style.display = 'none';
+        }
+
+        function toggleGoogleMode() {
+            document.title = "Google";
+            document.getElementById('favicon').href = "https://www.google.com/favicon.ico";
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                openUrl();
+            }
         }
     </script>
 </body>
