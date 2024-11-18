@@ -82,7 +82,7 @@
         </div>
         <div class="button-group">
             <button onclick="openUrl()">Open URL</button>
-            <button onclick="toggleGoogleMode()">Google Mode</button>
+            <button id="googleModeButton" onclick="toggleGoogleMode()">Google Mode</button>
         </div>
     </div>
     <div class="message-bar" id="messageBar">
@@ -90,6 +90,8 @@
         <button class="close-btn" onclick="closeMessageBar()">Dismiss</button>
     </div>
     <script>
+        let isGoogleMode = false;
+
         function openUrl() {
             const url = document.getElementById('urlInput').value.trim();
             if (!url.startsWith('https://') && !url.startsWith('http://')) {
@@ -114,8 +116,16 @@
         }
 
         function toggleGoogleMode() {
-            document.title = "Google";
-            document.getElementById('favicon').href = "https://www.google.com/favicon.ico";
+            isGoogleMode = !isGoogleMode;
+            if (isGoogleMode) {
+                document.title = "Google";
+                document.getElementById('favicon').href = "https://www.google.com/favicon.ico";
+                document.getElementById('googleModeButton').textContent = "Exit Google Mode";
+            } else {
+                document.title = "HideURL";
+                document.getElementById('favicon').href = "favicon.ico";
+                document.getElementById('googleModeButton').textContent = "Google Mode";
+            }
         }
 
         function handleKeyPress(event) {
