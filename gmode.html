@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>HideURL</title>
+    <link id="favicon" rel="icon" type="image/x-icon" href="favicon.ico" />
+    <style>
+        body {
+            background-color: #000005;
+            color: #ffffff;
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        .input-container {
+            width: 100%;
+            max-width: 600px;
+            margin-bottom: 2em;
+            text-align: center;
+        }
+        .input-group {
+            display: flex;
+            width: 100%;
+        }
+        input {
+            flex: 1;
+            padding: 10px;
+            border: none;
+            border-radius: 10px 0 0 10px;
+            background-color: #101010;
+            color: #ffffff;
+            margin-bottom: 0;
+        }
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 0 10px 10px 0;
+            background-color: #102040;
+            color: #ffffff;
+            cursor: pointer;
+        }
+        .message-bar {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background-color: #101010;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .close-btn {
+            margin-left: 20px;
+            background-color: #102040;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            padding: 5px 10px;
+        }
+        .google-mode-btn {
+            display: block;
+            margin: 10px auto 0;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            background-color: #102040;
+            color: #ffffff;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="input-container">
+        <h1>HideURL</h1>
+        <p>Enter a URL you want to be opened in an about:blank page below:</p>
+        <div class="input-group">
+            <input id="urlInput" type="url" placeholder="Enter a website URL" autocomplete="on" required pattern="https://.*">
+            <button onclick="openUrl()">Open URL</button>
+        </div>
+        <button class="google-mode-btn" onclick="toggleGoogleMode()">Google Mode</button>
+    </div>
+    <div class="message-bar" id="messageBar">
+        This will not work for all websites, and this does not block Securly.
+        <button class="close-btn" onclick="closeMessageBar()">Dismiss</button>
+    </div>
+    <script>
+        function openUrl() {
+            const url = document.getElementById('urlInput').value.trim();
+            if (!url.startsWith('https://') && !url.startsWith('http://')) {
+                alert('Please enter a valid URL starting with https:// or http://');
+                return;
+            }
+            const newWindow = window.open('about:blank', '_blank');
+            newWindow.document.body.style.margin = '0';
+            newWindow.document.body.style.height = '100vh';
+            const iframe = newWindow.document.createElement('iframe');
+            iframe.style.border = 'none';
+            iframe.style.width = '100%';
+            iframe.style.height = '100%';
+            iframe.style.margin = '0';
+            iframe.allowFullscreen = true;
+            iframe.src = url;
+            newWindow.document.body.appendChild(iframe);
+        }
+
+        function closeMessageBar() {
+            document.getElementById('messageBar').style.display = 'none';
+        }
+
+        function toggleGoogleMode() {
+            document.title = "Google";
+            document.getElementById('favicon').href = "https://www.google.com/favicon.ico";
+        }
+    </script>
+</body>
+</html>
