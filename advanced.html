@@ -69,7 +69,7 @@
         }
 
         async function loadIframe(encodedUrl, newWindow) {
-            await delay(1000); // Add delay
+            await delay(1500);
             const url = decodeUrl(encodedUrl);
             const iframe = newWindow.document.createElement('iframe');
             iframe.style.border = 'none';
@@ -114,7 +114,7 @@
                 </html>
             `);
             newWindow.document.close();
-            loadIframe(encodedUrl, newWindow);
+            setTimeout(() => loadIframe(encodedUrl, newWindow), 1000);
         }
     </script>
 </body>
