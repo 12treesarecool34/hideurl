@@ -62,11 +62,12 @@
                 alert('Please enter a valid URL starting with https:// or http://');
                 return;
             }
-            const proxyWindow = window.open('about:blank', '_blank');
-            proxyWindow.document.write(`
+            const newWindow = window.open('about:blank', '_blank');
+            newWindow.document.write(`
                 <!DOCTYPE html>
                 <html lang="en">
                 <head>
+                    <meta name="viewport" content="width=device-width, initial-scale=1" />
                     <style>
                         html, body {
                             margin: 0;
@@ -83,11 +84,7 @@
                     </style>
                 </head>
                 <body>
-                    <iframe id="proxyIframe"></iframe>
-                    <script>
-                        const iframe = document.getElementById('proxyIframe');
-                        iframe.src = "${url}";
-                    </script>
+                    <iframe src="${url}" allowfullscreen></iframe>
                 </body>
                 </html>
             `);
