@@ -85,7 +85,7 @@
 <body>
     <div class="input-container">
         <h1>HideURL</h1>
-        <p>Enter a URL you want to be hidden while open.</p>
+        <p>Mask URLs through embeds.</p>
         <div class="input-group">
             <input id="urlInput" type="url" placeholder="Enter a website URL" autocomplete="on" required pattern="https://.*" onkeypress="handleKeyPress(event)">
             <button onclick="openUrl()">Open URL</button>
@@ -94,7 +94,7 @@
         <button class="toggle-button" onclick="toggleEmbedMode()">Toggle Embed Mode</button>
     </div>
     <div class="message-bar" id="messageBar">
-        Before you use HideURL, read the notes.
+        Read the notes before you use HideURL.
         <button class="notes-btn" onclick="openNotes()">Notes</button>
         <button class="close-btn" onclick="closeMessageBar()">Dismiss</button>
     </div>
