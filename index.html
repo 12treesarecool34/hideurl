@@ -70,7 +70,7 @@
             align-items: center;
             font-family: 'Roboto', sans-serif;
         }
-        .close-btn {
+        .close-btn, .notes-btn {
             margin-left: 20px;
             background-color: #102040;
             border: none;
@@ -94,7 +94,8 @@
         <button class="toggle-button" onclick="toggleEmbedMode()">Toggle Embed Mode</button>
     </div>
     <div class="message-bar" id="messageBar">
-        This will not work for all websites, and this does not block Securly.
+        Before you use HideURL, read the notes.
+        <button class="notes-btn" onclick="openNotes()">Notes</button>
         <button class="close-btn" onclick="closeMessageBar()">Dismiss</button>
     </div>
     <script>
@@ -150,6 +151,10 @@
         function toggleEmbedMode() {
             embedMode = !embedMode;
             alert(`Embed mode is now ${embedMode ? 'enabled' : 'disabled'}.`);
+        }
+
+        function openNotes() {
+            window.open('./notes', '_blank');
         }
     </script>
 </body>
