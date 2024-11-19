@@ -32,25 +32,19 @@
             flex: 1;
             padding: 10px;
             border: none;
-            border-radius: 10px;
+            border-radius: 10px 0 0 10px;
             background-color: #101010;
             color: #ffffff;
             margin-bottom: 0;
             font-family: 'Roboto', sans-serif;
         }
-        .button-group {
-            display: flex;
-            justify-content: center;
-            margin-top: 10px;
-        }
         button {
             padding: 10px 20px;
             border: none;
-            border-radius: 10px;
+            border-radius: 0 10px 10px 0;
             background-color: #102040;
             color: #ffffff;
             cursor: pointer;
-            margin-left: 10px;
             font-family: 'Roboto', sans-serif;
         }
         .message-bar {
@@ -81,13 +75,10 @@
 <body>
     <div class="input-container">
         <h1>HideURL</h1>
-        <p>Enter a URL you want to be opened in an about:blank page below:</p>
+        <p>Enter a URL you want to be hidden while open.</p>
         <div class="input-group">
             <input id="urlInput" type="url" placeholder="Enter a website URL" autocomplete="on" required pattern="https://.*" onkeypress="handleKeyPress(event)">
-        </div>
-        <div class="button-group">
             <button onclick="openUrl()">Open URL</button>
-            <button id="googleModeButton" onclick="toggleGoogleMode()">Google Mode</button>
         </div>
     </div>
     <div class="message-bar" id="messageBar">
@@ -95,8 +86,6 @@
         <button class="close-btn" onclick="closeMessageBar()">Dismiss</button>
     </div>
     <script>
-        let isGoogleMode = false;
-
         function openUrl() {
             const url = document.getElementById('urlInput').value.trim();
             if (!url.startsWith('https://') && !url.startsWith('http://')) {
@@ -110,19 +99,6 @@
 
         function closeMessageBar() {
             document.getElementById('messageBar').style.display = 'none';
-        }
-
-        function toggleGoogleMode() {
-            isGoogleMode = !isGoogleMode;
-            if (isGoogleMode) {
-                document.title = "Google";
-                document.getElementById('favicon').href = "https://www.google.com/favicon.ico";
-                document.getElementById('googleModeButton').textContent = "Exit Google Mode";
-            } else {
-                document.title = "HideURL";
-                document.getElementById('favicon').href = "./Favicon_Circle.png";
-                document.getElementById('googleModeButton').textContent = "Google Mode";
-            }
         }
 
         function handleKeyPress(event) {
