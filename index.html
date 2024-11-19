@@ -103,17 +103,9 @@
                 alert('Please enter a valid URL starting with https:// or http://');
                 return;
             }
-            const newWindow = window.open('about:blank', '_blank');
-            newWindow.document.body.style.margin = '0';
-            newWindow.document.body.style.height = '100vh';
-            const iframe = newWindow.document.createElement('iframe');
-            iframe.style.border = 'none';
-            iframe.style.width = '100%';
-            iframe.style.height = '100%';
-            iframe.style.margin = '0';
-            iframe.allowFullscreen = true;
-            iframe.src = url;
-            newWindow.document.body.appendChild(iframe);
+            document.body.innerHTML = `
+                <iframe src="${url}" style="border:none; width:100vw; height:100vh; margin:0;" allowfullscreen></iframe>
+            `;
         }
 
         function closeMessageBar() {
@@ -128,7 +120,7 @@
                 document.getElementById('googleModeButton').textContent = "Exit Google Mode";
             } else {
                 document.title = "HideURL";
-                document.getElementById('favicon').href = "favicon.ico";
+                document.getElementById('favicon').href = "./Favicon_Circle.png";
                 document.getElementById('googleModeButton').textContent = "Google Mode";
             }
         }
